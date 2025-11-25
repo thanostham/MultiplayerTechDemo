@@ -141,3 +141,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Food
   food: {fileID: 6201882724887040695}
+  lerpSpeed: 6
+  attractionDistance: 0.8
