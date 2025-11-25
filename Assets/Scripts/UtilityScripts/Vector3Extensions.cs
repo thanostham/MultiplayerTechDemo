@@ -10,9 +10,9 @@ public static class Vector3Extensions
     /// <param name="v">Original vector.</param>
     /// <param name="newY">The y value to use in the returned vector.</param>
     /// <returns>A new Vector3 with y replaced by <paramref name="newY"/>.</returns>
-    public static Vector3 WithNewY(this Vector3 v, float newY)
+    public static Vector3 WithNewZ(this Vector3 v, float newZ)
     {
-        return new Vector3(v.x, newY, v.z);
+        return new Vector3(v.x, v.y, newZ);
         
     }
 }

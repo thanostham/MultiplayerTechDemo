@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class Food : MonoBehaviour
 {
-    GameObject food;
-    private void OnTriggerEnter2D(Collider other)
+    [SerializeField]GameObject food;
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Food"))
+        if (other.CompareTag("Player"))
         {
-            Destroy(other.gameObject);
+            Debug.Log("Player Collided with Food");
+            Destroy(gameObject);
             FoodManager.Instance.RespawnFood(food);
         }
     }

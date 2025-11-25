@@ -5,16 +5,15 @@ public class MovementLogic : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 5f;
     public Rigidbody2D rb;
-    public Camera cam;
+    public Camera cam;   
     
     Vector2 mousePos;
-
-    // Update is called once per frame
     void Update()
     {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        
-        Vector2 target = Vector2.Lerp(rb.position, mousePos, 0.1f); // smooth 10% follow
+        cam.transform.position = rb.transform.position.WithNewZ(-10);
+
+        Vector2 target = Vector2.Lerp(rb.position, mousePos, 0.1f);
         Vector2 dir = (target - rb.position).normalized;
 
         rb.position += dir * movementSpeed * Time.deltaTime;
