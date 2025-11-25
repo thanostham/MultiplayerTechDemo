@@ -3,7 +3,7 @@
 using System;
 using UnityEngine;
 
-public class Shooting : MonoBehaviour
+public class ShootingLogic : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
