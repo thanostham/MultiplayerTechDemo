@@ -1,5 +1,9 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
+using PurrNet;
+using UnityEditor;
+using Random = UnityEngine.Random;
 
 public class FoodManager : MonoBehaviour
 {
@@ -24,13 +28,14 @@ public class FoodManager : MonoBehaviour
     public Vector2 mapSize = new Vector2(100, 100);
 
     private List<GameObject> foodPool = new List<GameObject>();
-
+    
 
     private void Start()
     {
         CreatePool();
         SpawnAllFood();
     }
+    
 
     private void CreatePool()
     {

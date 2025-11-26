@@ -1,7 +1,9 @@
 //Thanos Thamnopoulos
+
+using PurrNet;
 using UnityEngine;
 
-public class Food : MonoBehaviour
+public class Food : NetworkBehaviour
 {
     [SerializeField] GameObject food;
     [SerializeField] float lerpSpeed = 5f;
