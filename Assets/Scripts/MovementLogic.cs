@@ -11,16 +11,27 @@ public class MovementLogic : NetworkBehaviour
     
     Vector2 mousePos;
 
-    private void Update()
+
+    protected override void OnSpawned()
     {
-        Debug.Log($"isOwner: {isOwner}");
-        
+        base.OnSpawned();
+
+        enabled = isOwner;
+    }
+
+    private void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    private void Update()
+    {    
         if (!isOwner) return;
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         cam.transform.position = rb.transform.position.WithNewZ(-10);
 
-        SendMovementToServer(mousePos);
+        SendMovementToServer(mousePos);   
     }
 
     [ServerRpc]

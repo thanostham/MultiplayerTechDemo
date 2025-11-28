@@ -47,8 +47,9 @@ GameObject:
   - component: {fileID: 7460799457402245692}
   - component: {fileID: 5968187143285696476}
   - component: {fileID: 3783502287431779634}
+  - component: {fileID: 4946754746315531863}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +120,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7182269146571354817, guid: 4b817eca730036c4aa5f141cbfbddd3d, type: 3}
-  m_Color: {r: 0.7264151, g: 0.14048593, b: 0.14048593, a: 1}
+  m_Color: {r: 0.19188325, g: 0.8301887, b: 0.26387078, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -199,7 +200,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589393784580724803}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &7460799457402245692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,6 +271,35 @@ MonoBehaviour:
   firePoint: {fileID: 7743863133747733620}
   bulletPrefab: {fileID: 2339689167945869053, guid: f076fc9fdebbdb040b713cc397ce93f1, type: 3}
   bulletForce: 20
+--- !u!114 &4946754746315531863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589393784580724803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d5e4b97b1615f4aae984a3d5f4235f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkOwnershipToggle
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _components:
+  - target: {fileID: 5968187143285696476}
+    activeAsOwner: 0
+  _gameObjects: []
+  _toActivate: []
+  _toDeactivate: []
+  _toEnable: []
+  _toDisable: []
 --- !u!1 &4997202292198022086
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +310,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8658362506302968268}
   - component: {fileID: 6658074967494815369}
-  - component: {fileID: 1193880246450524589}
   - component: {fileID: 2644302540214533217}
   m_Layer: 0
   m_Name: Camera
@@ -355,14 +384,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1193880246450524589
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4997202292198022086}
-  m_Enabled: 1
 --- !u!114 &2644302540214533217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,10 +396,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24dad17f73cbd3840b603e09b693be16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
   target: {fileID: 8658362506302968268}
-  parallaxStrength: 2
-  parallaxSmoothSpeed: 5
-  edgeThreshold: 0.15
+  netID: {fileID: 0}
   followSmoothSpeed: 10
   zPosition: -10
   cam: {fileID: 6658074967494815369}

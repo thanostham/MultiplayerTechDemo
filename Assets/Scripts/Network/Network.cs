@@ -3,6 +3,8 @@
 using System.Collections;
 using UnityEngine;
 using PurrNet;
+using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting;
 
 public class Network : MonoBehaviour
 {
@@ -11,20 +13,24 @@ public class Network : MonoBehaviour
     [SerializeField] private float spawnRangeY = 30f;
     
     private NetworkManager networkManager;
+    private FoodManager foodManager;
     private NetworkIdentity localPlayerIdentity;
 
     private void Start()
     {
         networkManager = FindObjectOfType<NetworkManager>();
+        foodManager = FindObjectOfType<FoodManager>();
+        StartHost();
     }
 
     public void StartHost()
     {
-        if (!networkManager.isServer)
+        if (!networkManager.isHost)
         {
             networkManager.StartHost();
             StartCoroutine(WaitAndSpawn());
         }
+        
     }
 
     public void JoinGame()
@@ -38,55 +44,43 @@ public class Network : MonoBehaviour
     
     private IEnumerator WaitAndSpawn()
     {
-        // Wait for network to fully initialize
+        //Wait for network to fully initialize
         yield return new WaitForSeconds(0.5f);
         
-        // Extra check to ensure we're connected
+        //Extra check to ensure we're connected
         while (!networkManager.isClient && !networkManager.isServer)
         {
             yield return null;
         }
-        
+
         SpawnPlayer();
+        foodManager.StartFood();
     }
-    
-    private void SpawnPlayer()
+
+    public void SpawnPlayer()
     {
         if (localPlayerIdentity != null)
         {
             Debug.LogWarning("Player already spawned!");
             return;
         }
-            
+
         Vector3 randomPos = new Vector3(
             Random.Range(-spawnRangeX / 2f, spawnRangeX / 2f),
             Random.Range(-spawnRangeY / 2f, spawnRangeY / 2f),
             1f
         );
-        
+
         GameObject playerObj = Instantiate(playerPrefab, randomPos, Quaternion.identity);
-        
-        //Get the NetworkIdentity
-        localPlayerIdentity = playerObj.GetComponent<NetworkIdentity>();
-        
-        //Give Ownership
+
+        networkManager.Spawn(playerObj);
+
+        localPlayerIdentity = playerObj.AddComponent<NetworkIdentity>();
+
         if (localPlayerIdentity != null)
         {
             localPlayerIdentity.GiveOwnership(networkManager.localPlayer);
-            Debug.Log($"Player spawned with ownership: {localPlayerIdentity.isOwner}");
-            
-            StartCoroutine(CheckOwnershipDelayed());
-        }
-        else
-        {
-            Debug.LogError("PlayerPrefab is missing NetworkIdentity/NetworkBehaviour component!");
-        }
-    }
-    
-    private IEnumerator CheckOwnershipDelayed()
-    {
-        yield return new WaitForSeconds(0.1f);
-        Debug.Log($"Ownership check - isOwner: {localPlayerIdentity.isOwner}, Owner: {localPlayerIdentity.owner}");
+        }      
     }
     
     public void StopClient()

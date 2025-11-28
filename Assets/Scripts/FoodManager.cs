@@ -30,7 +30,7 @@ public class FoodManager : MonoBehaviour
     private List<GameObject> foodPool = new List<GameObject>();
     
 
-    private void Start()
+    public void StartFood()
     {
         CreatePool();
         SpawnAllFood();
