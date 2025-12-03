@@ -3,7 +3,6 @@
 using System.Collections;
 using UnityEngine;
 using PurrNet;
-using UnityEditor.Experimental.GraphView;
 using Unity.VisualScripting;
 
 public class Network : MonoBehaviour
