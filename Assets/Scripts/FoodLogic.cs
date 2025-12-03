@@ -52,7 +52,7 @@ public class Food : NetworkBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player Collided with Food");
+            //Debug.Log("Player Collided with Food");
             Destroy(gameObject);
             FoodManager.Instance.RespawnFood(food);
         }

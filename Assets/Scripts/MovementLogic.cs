@@ -16,7 +16,11 @@ public class MovementLogic : NetworkBehaviour
     {
         base.OnSpawned();
 
-        enabled = isOwner;
+        if (!isOwner)
+        {
+            GetComponentInChildren<Camera>().enabled = false;
+        }
+
     }
 
     private void OnDisable()
@@ -24,6 +28,7 @@ public class MovementLogic : NetworkBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
+
     private void Update()
     {    
         if (!isOwner) return;
@@ -34,7 +39,7 @@ public class MovementLogic : NetworkBehaviour
         SendMovementToServer(mousePos);   
     }
 
-    [ServerRpc]
+    //[ServerRpc]
     private void SendMovementToServer(Vector2 targetMousePos)
     {
         Vector2 target = Vector2.Lerp(rb.position, targetMousePos, 0.1f);

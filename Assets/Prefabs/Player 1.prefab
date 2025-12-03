@@ -294,7 +294,7 @@ MonoBehaviour:
   _visitiblityRules: {fileID: 0}
   _components:
   - target: {fileID: 5968187143285696476}
-    activeAsOwner: 0
+    activeAsOwner: 1
   _gameObjects: []
   _toActivate: []
   _toDeactivate: []

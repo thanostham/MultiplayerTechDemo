@@ -18,9 +18,9 @@ public class Network : MonoBehaviour
 
     private void Start()
     {
-        networkManager = FindObjectOfType<NetworkManager>();
-        foodManager = FindObjectOfType<FoodManager>();
-        StartHost();
+        networkManager = Object.FindAnyObjectByType<NetworkManager>();
+        foodManager = Object.FindAnyObjectByType<FoodManager>();
+       // StartHost();
     }
 
     public void StartHost()
@@ -28,6 +28,7 @@ public class Network : MonoBehaviour
         if (!networkManager.isHost)
         {
             networkManager.StartHost();
+            Debug.Log("trying to spawn as a host");
             StartCoroutine(WaitAndSpawn());
         }
         
@@ -38,6 +39,7 @@ public class Network : MonoBehaviour
         if (!networkManager.isClient)
         {
             networkManager.StartClient();
+            Debug.Log("trying to spawn as a client");
             StartCoroutine(WaitAndSpawn());
         }
     }
@@ -45,21 +47,24 @@ public class Network : MonoBehaviour
     private IEnumerator WaitAndSpawn()
     {
         //Wait for network to fully initialize
+        Debug.Log("Waiting for 0.5sec");
         yield return new WaitForSeconds(0.5f);
         
         //Extra check to ensure we're connected
-        while (!networkManager.isClient && !networkManager.isServer)
+        while (!networkManager.isClient && !networkManager.isHost && !networkManager.isServer)
         {
+            Debug.Log("ALL WENT TO SHIT, connected as ????");
             yield return null;
         }
 
+        Debug.Log("Spawning player and food...");
         SpawnPlayer();
         foodManager.StartFood();
     }
 
     public void SpawnPlayer()
     {
-        if (localPlayerIdentity != null)
+        if (localPlayerIdentity)
         {
             Debug.LogWarning("Player already spawned!");
             return;
@@ -72,10 +77,10 @@ public class Network : MonoBehaviour
         );
 
         GameObject playerObj = Instantiate(playerPrefab, randomPos, Quaternion.identity);
+        Debug.Log($"[player spawned :{playerObj}]");
+        //networkManager.Spawn(playerObj);
 
-        networkManager.Spawn(playerObj);
-
-        localPlayerIdentity = playerObj.AddComponent<NetworkIdentity>();
+        localPlayerIdentity = playerObj.GetComponent<MovementLogic>();
 
         if (localPlayerIdentity != null)
         {
