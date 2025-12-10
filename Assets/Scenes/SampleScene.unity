@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 19050804}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 388917301}
   - component: {fileID: 388917300}
   - component: {fileID: 388917302}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: meteor_detailedSmall_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 520985853}
   - component: {fileID: 520985852}
   - component: {fileID: 520985854}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: meteor_squareDetailedLarge_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1172,7 +1172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1261711044}
   - component: {fileID: 1261711045}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WestBound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1365,7 +1365,7 @@ GameObject:
   - component: {fileID: 1474566262}
   - component: {fileID: 1474566261}
   - component: {fileID: 1474566263}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: meteor_detailedLarge_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1799,7 +1799,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1594598848}
   - component: {fileID: 1594598849}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SouthBound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2191,7 +2191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1708946405}
   - component: {fileID: 1708946406}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: NorthBound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2269,7 +2269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1750688664}
   - component: {fileID: 1750688665}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EastBound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2346,7 +2346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1969877147}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}

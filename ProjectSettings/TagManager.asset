@@ -13,11 +13,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Bullet
+  - PlayerSelf
+  - PlayerOther
+  - Planets
+  - Bounds
   - 
   - 
   - 
