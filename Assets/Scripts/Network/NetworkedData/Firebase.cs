@@ -15,7 +15,9 @@ public class FirebaseManager : MonoBehaviour
 
     [SerializeField] private TMP_Text NameToGet;
     [SerializeField] private TMP_Text PasswordToGet;
-    
+
+    [SerializeField] private TMP_Text Warnings;
+
     public User newUser;
     public string userID;
     DatabaseReference dbReference;
@@ -29,6 +31,25 @@ public class FirebaseManager : MonoBehaviour
     {
         userID = SystemInfo.deviceUniqueIdentifier;
     }
+
+    public IEnumerator CheckUserExists(Action<bool> callback)
+    {
+        var userData = dbReference.Child("users").Child(userID).Child("name").GetValueAsync();
+        yield return new WaitUntil(predicate: () => userData.IsCompleted);
+
+        if (userData.Result.Exists)
+        {
+            callback.Invoke(true);
+            Warnings.text = "Error : User already exists by this name in your Computer (User exists under same UID";
+
+        }
+        else
+        {
+            callback.Invoke(false);
+            CreateUser();
+        }
+    }
+
 
     public void CreateUser()
     {
@@ -54,8 +75,8 @@ public class FirebaseManager : MonoBehaviour
     public IEnumerator GetPassword(Action<string> callback)
     {
         var UserPasswordData = dbReference.Child("users").Child("password").GetValueAsync();
-        
-        yield return new WaitUntil(predicate:(() => UserPasswordData.IsCompleted));
+
+        yield return new WaitUntil(predicate: (() => UserPasswordData.IsCompleted));
 
         if (UserPasswordData != null)
         {
@@ -66,19 +87,14 @@ public class FirebaseManager : MonoBehaviour
 
     public void GetUserInfo()
     {
-        StartCoroutine(GetUsername((string name) => {NameToGet.text = "Name "+name;}));
-        
-        StartCoroutine(GetPassword(password => {PasswordToGet.text = "Password "+password;}));
+        StartCoroutine(GetUsername((name) => { NameToGet.text = "Name " + name; }));
+
+        StartCoroutine(GetPassword(password => { PasswordToGet.text = "Password " + password; }));
     }
 
-    public void UpdateName()
+    public void CheckAndCreate()
     {
-        dbReference.Child("users").Child(userID).Child("name").SetValueAsync(Username.text);
-    }
-
-    public void UpdatePassword()
-    {
-        dbReference.Child("users").Child(userID).Child("password").SetValueAsync(Username.text);
+        StartCoroutine(CheckUserExists((exists) => {}));    //No idea why this works, its empty.... but it works.
     }
     
 }
