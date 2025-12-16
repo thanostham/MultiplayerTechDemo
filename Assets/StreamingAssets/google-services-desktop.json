@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "463592194522",
+    "firebase_url": "https://multiplayertechdemo-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "multiplayertechdemo",
+    "storage_bucket": "multiplayertechdemo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463592194522:android:67b0b640040d8fac6340e3",
+        "android_client_info": {
+          "package_name": "MultiplayerTechDemo.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCA_WZozNL18KMsKEHT5V7PSkHhi_k2z5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
