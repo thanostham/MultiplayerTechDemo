@@ -387,8 +387,8 @@ MonoBehaviour:
   spawnRangeX: 50
   spawnRangeY: 50
   _Ptransport: {fileID: 514139160}
-  mainMenuSceneId: 1
-  gameSceneId: 2
+  mainMenuSceneId: 0
+  gameSceneId: 1
   roomIField: {fileID: 918854852}
 --- !u!114 &514139156
 MonoBehaviour:

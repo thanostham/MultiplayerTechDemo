@@ -20,8 +20,8 @@ public class Network : MonoBehaviour
     private NetworkIdentity localPlayerIdentity;
     public PurrTransport _Ptransport;
 
-    [SerializeField]private int mainMenuSceneId = 1;
-    [SerializeField]private int gameSceneId = 2;
+    [SerializeField]private int mainMenuSceneId = 0;
+    [SerializeField]private int gameSceneId = 1;
 
     [SerializeField] private TMP_InputField roomIField;
 
