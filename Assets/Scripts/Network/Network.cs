@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 public class Network : MonoBehaviour
 {
+    public static Network NetInstance;
+    
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private float spawnRangeX = 30f;
     [SerializeField] private float spawnRangeY = 30f;
@@ -25,9 +27,10 @@ public class Network : MonoBehaviour
 
     private void Awake()
     {
+        NetInstance = this;
         _Ptransport = networkManager.transport as PurrTransport;
 
-        //SceneManager.activeSceneChanged += SceneManagerOnActiveSceneChanged;
+        SceneManager.activeSceneChanged += SceneManagerOnActiveSceneChanged;
     }
 
     private void Start()

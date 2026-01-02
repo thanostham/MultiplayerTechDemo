@@ -375,7 +375,6 @@ GameObject:
   m_Component:
   - component: {fileID: 514139159}
   - component: {fileID: 514139158}
-  - component: {fileID: 514139156}
   - component: {fileID: 514139155}
   - component: {fileID: 514139160}
   m_Layer: 0
@@ -404,18 +403,6 @@ MonoBehaviour:
   mainMenuSceneId: 1
   gameSceneId: 2
   roomIField: {fileID: 918854852}
---- !u!114 &514139156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 514139154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cb8389d6c6904f4d98a4f00dbb109d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SingleTon
 --- !u!114 &514139158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +471,6 @@ GameObject:
   m_Component:
   - component: {fileID: 530880741}
   - component: {fileID: 530880743}
-  - component: {fileID: 530880742}
   m_Layer: 0
   m_Name: IpFetcher
   m_TagString: Untagged
@@ -507,18 +493,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &530880742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 530880740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cb8389d6c6904f4d98a4f00dbb109d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SingleTon
 --- !u!114 &530880743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,7 +694,6 @@ GameObject:
   m_Component:
   - component: {fileID: 572933510}
   - component: {fileID: 572933509}
-  - component: {fileID: 572933511}
   m_Layer: 0
   m_Name: FirebaseManager
   m_TagString: Untagged
@@ -745,6 +718,8 @@ MonoBehaviour:
   NameToGet: {fileID: 2102017702}
   PasswordToGet: {fileID: 656272883}
   Warnings: {fileID: 667603866}
+  UserPanel: {fileID: 1152215243}
+  RoomPanel: {fileID: 1027274365}
   userID: 
 --- !u!4 &572933510
 Transform:
@@ -761,18 +736,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &572933511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572933508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cb8389d6c6904f4d98a4f00dbb109d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SingleTon
 --- !u!1 &656272881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2769,6 +2732,18 @@ MonoBehaviour:
       - m_Target: {fileID: 572933509}
         m_TargetAssemblyTypeName: FirebaseManager, Assembly-CSharp
         m_MethodName: CheckAndCreate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 572933509}
+        m_TargetAssemblyTypeName: FirebaseManager, Assembly-CSharp
+        m_MethodName: SwitchToPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

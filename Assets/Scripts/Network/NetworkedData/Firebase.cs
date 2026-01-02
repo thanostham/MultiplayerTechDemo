@@ -3,6 +3,7 @@ using System.Collections;
 using Firebase;
 using Firebase.Database;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,8 @@ using UnityEngine.SceneManagement;
  */
 public class FirebaseManager : MonoBehaviour
 {
+    public static FirebaseManager Instance { get; set; }
+    
     [SerializeField] TMP_InputField Username;
     [SerializeField] TMP_InputField Password;
 
@@ -21,7 +24,8 @@ public class FirebaseManager : MonoBehaviour
     [SerializeField] private TMP_Text PasswordToGet;
 
     [SerializeField] private TMP_Text Warnings;
-
+    [SerializeField] private GameObject UserPanel;
+    [SerializeField] private GameObject RoomPanel;
     public User newUser;
     public string userID;
     DatabaseReference dbReference;
@@ -31,6 +35,8 @@ public class FirebaseManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+        
         //There was an error about development certificates, this fixes it smh ? 
         System.Net.ServicePointManager.ServerCertificateValidationCallback = 
             delegate { return true; };
@@ -193,8 +199,25 @@ public class FirebaseManager : MonoBehaviour
         if (userID == null) return;
         
         StartCoroutine(CheckUserExists((exists) => {}));
+    }
 
-        if (userID != null) SceneManager.LoadScene(1);
+    public void ContinueToScene(bool isUser = false)
+    {
+        if (userID != null) isUser = true;
+        //DELETE THIS LINE 
+        Debug.Log($"{NameToGet}, {PasswordToGet}");
+        if(isUser && Username == NameToGet && Password == PasswordToGet) SwitchToPanel();
+        
+    }
+
+    public void SwitchToPanel()
+    {
+        if (userID == null) Debug.LogError("Cannot switch to panel becase User is null");
+        else
+        {
+           UserPanel.SetActive(false);
+           RoomPanel.SetActive(true);
+        }
     }
 }
 
@@ -211,7 +234,7 @@ public struct User
     }
 }
 
-//SQLite User [ not a struct bc I want to compare it to null types ]
+//SQLite User [ not a struct, to compare it to null types ]
 [System.Serializable]
 public class UsersDT
 {
