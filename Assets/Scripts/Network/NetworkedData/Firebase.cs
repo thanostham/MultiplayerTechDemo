@@ -5,6 +5,7 @@ using Firebase.Database;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 /*
  * FirebaseManager, manages data across our 2 databases. The firebase database (realtime) that saves
@@ -190,6 +191,8 @@ public class FirebaseManager : MonoBehaviour
     public void CheckAndCreate()
     {
         StartCoroutine(CheckUserExists((exists) => {}));
+
+        if (userID != null) SceneManager.LoadScene(1);
     }
 }
 
