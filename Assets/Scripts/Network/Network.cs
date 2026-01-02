@@ -3,11 +3,9 @@ using UnityEngine;
 using PurrNet;
 using PurrNet.Transports;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using PurrNet.Modules;
 using System.Threading.Tasks;
-using UnityEngine.PlayerLoop;
 
 public class Network : MonoBehaviour
 {
@@ -20,8 +18,8 @@ public class Network : MonoBehaviour
     private NetworkIdentity localPlayerIdentity;
     public PurrTransport _Ptransport;
 
-    [SerializeField]private int mainMenuSceneId = 0;
-    [SerializeField]private int gameSceneId = 1;
+    [SerializeField]private int mainMenuSceneId = 1;
+    [SerializeField]private int gameSceneId =2;
 
     [SerializeField] private TMP_InputField roomIField;
 
@@ -29,7 +27,7 @@ public class Network : MonoBehaviour
     {
         _Ptransport = networkManager.transport as PurrTransport;
 
-        SceneManager.activeSceneChanged += SceneManagerOnActiveSceneChanged;
+        //SceneManager.activeSceneChanged += SceneManagerOnActiveSceneChanged;
     }
 
     private void Start()

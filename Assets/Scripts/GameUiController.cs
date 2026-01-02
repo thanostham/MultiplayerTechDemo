@@ -2,7 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class LoginUI : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    // There was a lot of code here.... it got yeeted.... i used the wrong database MB.
+    [SerializeField] private GameObject mainMenu;
+
+    private void Awake()
+    {
+        ToggleMainMenu(true);
+    }
+
+    public void ToggleMainMenu(bool statues)
+    {
+        mainMenu.SetActive(statues);
+    }
 }

@@ -190,6 +190,8 @@ public class FirebaseManager : MonoBehaviour
 
     public void CheckAndCreate()
     {
+        if (userID == null) return;
+        
         StartCoroutine(CheckUserExists((exists) => {}));
 
         if (userID != null) SceneManager.LoadScene(1);
