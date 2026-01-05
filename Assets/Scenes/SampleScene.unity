@@ -1167,6 +1167,10 @@ MonoBehaviour:
   playerPrefab: {fileID: 1589393784580724803, guid: 0eb0b403f60d7de49a631f9a0272f6d3, type: 3}
   spawnRangeX: 50
   spawnRangeY: 50
+  _Ptransport: {fileID: 0}
+  mainMenuSceneId: 1
+  gameSceneId: 2
+  roomIField: {fileID: 0}
 --- !u!114 &967078676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2591,7 +2595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2117051565
 MonoBehaviour:
   m_ObjectHideFlags: 0

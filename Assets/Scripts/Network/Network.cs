@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 public class Network : MonoBehaviour
 {
-    public static Network NetInstance;
+    public static Network NetInstance { get; set; }
     
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private float spawnRangeX = 30f;
     [SerializeField] private float spawnRangeY = 30f;
-    
+                                                                                        
     private NetworkManager networkManager;
     private FoodManager foodManager;
     private NetworkIdentity localPlayerIdentity;
@@ -25,10 +25,12 @@ public class Network : MonoBehaviour
 
     [SerializeField] private TMP_InputField roomIField;
 
+
     private void Awake()
     {
         NetInstance = this;
-        _Ptransport = networkManager.transport as PurrTransport;
+        DontDestroyOnLoad(NetInstance);
+        _Ptransport = GetComponent<PurrTransport>();
 
         SceneManager.activeSceneChanged += SceneManagerOnActiveSceneChanged;
     }
@@ -121,7 +123,15 @@ public class Network : MonoBehaviour
 
         Debug.Log("Spawning player and food...");
         SpawnPlayer();
-        foodManager.StartFood();
+        if (networkManager.isHost)
+        {
+            foodManager.StartFood();
+            
+        }
+        else
+        { 
+            Debug.Log("not a hosr so no food for u !!!");
+        }
     }
 
     public void SpawnPlayer()
