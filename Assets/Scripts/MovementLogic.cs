@@ -11,18 +11,24 @@ public class MovementLogic : NetworkBehaviour
     public Camera cam;
     
     Vector2 mousePos;
-    
-    
+
+
     protected override void OnSpawned()
     {
         base.OnSpawned();
 
-        if (!isOwner)
+        if (isOwner)
         {
-            GetComponentInChildren<Camera>().enabled = false;
+            cam.enabled = true;
+        }
+        else
+        {
+            cam.enabled = false;
         }
 
     }
+
+
 
     private void OnDisable()
     {

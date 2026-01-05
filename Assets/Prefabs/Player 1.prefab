@@ -311,6 +311,7 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 7168
+  damage: 20
 --- !u!114 &4946754746315531863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +356,7 @@ GameObject:
   - component: {fileID: 2644302540214533217}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

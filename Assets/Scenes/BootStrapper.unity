@@ -171,7 +171,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179947568}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6abbfcef4e2b1c246bacda5b18c93bf7, type: 3}
   m_Name: 
@@ -399,9 +399,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 1589393784580724803, guid: 0eb0b403f60d7de49a631f9a0272f6d3, type: 3}
   spawnRangeX: 50
   spawnRangeY: 50
-  _Ptransport: {fileID: 0}
-  mainMenuSceneId: 1
-  gameSceneId: 2
+  mainMenuSceneId: 0
+  gameSceneId: 1
   roomIField: {fileID: 918854852}
 --- !u!114 &514139158
 MonoBehaviour:
