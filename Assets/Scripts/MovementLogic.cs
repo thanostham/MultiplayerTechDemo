@@ -17,13 +17,16 @@ public class MovementLogic : NetworkBehaviour
     {
         base.OnSpawned();
 
-        if (isOwner)
+        if(networkManager.serverState == ConnectionState.Connected || networkManager.clientState == ConnectionState.Connected)
         {
-            cam.enabled = true;
-        }
-        else
-        {
-            cam.enabled = false;
+            if (isOwner)
+            {
+                cam.enabled = true;
+            }
+            else
+            {
+                cam.enabled = false;
+            }
         }
 
     }

@@ -21,12 +21,39 @@ public class CameraController : NetworkBehaviour
     {
         frozenRotation = Quaternion.identity;
         transform.rotation = frozenRotation;
+        if (target == null)
+        {
+            //get parent player
+            target = transform.parent;
+        
+            //find the rb
+            if (target == null)
+            {
+                var rb = GetComponentInParent<Rigidbody2D>();
+                if (rb != null) target = rb.transform;
+            }
+        }
+    }
+    
+    protected override void OnSpawned()
+    {
+        base.OnSpawned();
+    
+        if (!isOwner)
+        {
+            cam.enabled = false;
+            this.enabled = false;
+            return;
+        }
+    
+        cam.enabled = true;
     }
 
     private void LateUpdate()
     {
+        if (!isOwner) return;
         if (target == null) return;
-        
+    
         Vector3 desiredPosition = target.position;
         desiredPosition.z = zPosition;
 
@@ -35,12 +62,11 @@ public class CameraController : NetworkBehaviour
             desiredPosition, 
             followSmoothSpeed * Time.deltaTime
         );
-        
-        //Force rotation to stay frozen every frame
+    
         transform.rotation = frozenRotation;
     }
 
-    //===We may need this later to target the player that killed us===
+    //just in case of killcam or sth
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
