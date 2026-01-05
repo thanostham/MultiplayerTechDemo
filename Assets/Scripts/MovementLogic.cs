@@ -39,7 +39,6 @@ public class MovementLogic : NetworkBehaviour
         SendMovementToServer(mousePos);   
     }
 
-    //[ServerRpc]
     private void SendMovementToServer(Vector2 targetMousePos)
     {
         Vector2 target = Vector2.Lerp(rb.position, targetMousePos, 0.1f);

@@ -29,33 +29,38 @@ public class ShootingLogic : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            var hit = Physics2D.Raycast(firePoint.position, transform.up, weaponRange, hitLayer);
-            var trail = Instantiate(bulletTrail, firePoint.position, transform.rotation);
-            var trailScript = trail.GetComponent<BulletTrail>();
+            Shoot();
+        }
+    }
 
-            if (hit.collider != null)
+    [ObserversRpc(runLocally:true)]
+    private void Shoot()
+    {
+        var hit = Physics2D.Raycast(firePoint.position, transform.up, weaponRange, hitLayer);
+        var trail = Instantiate(bulletTrail, firePoint.position, transform.rotation);
+        var trailScript = trail.GetComponent<BulletTrail>();
+
+        if (hit.collider != null)
+        {
+            Debug.Log($"Hit: {hit.transform.name}");
+            trailScript.SetTrargetPosition(hit.point);
+
+            if (hit.transform.TryGetComponent(out PlayerHealth playerHealth))
             {
-                Debug.Log($"Hit: {hit.transform.name}");
-                trailScript.SetTrargetPosition(hit.point);
-
-                if (hit.transform.TryGetComponent(out PlayerHealth playerHealth))
-                {
-                    playerHealth.ChangeHealth(-damage);
-                }
-
+                playerHealth.ChangeHealth(-damage);
             }
-            else
-            {
-                Debug.Log("No hit");
-                var targetPosition = firePoint.position + transform.up * weaponRange;
-                trailScript.SetTrargetPosition(targetPosition);
-            }
-
-
-            NetworkIdentity netId = trail.GetComponent<NetworkIdentity>();
-            netId.Spawn(null);
 
         }
+        else
+        {
+            Debug.Log("No hit");
+            var targetPosition = firePoint.position + transform.up * weaponRange;
+            trailScript.SetTrargetPosition(targetPosition);
+        }
+
+
+        NetworkIdentity netId = trail.GetComponent<NetworkIdentity>();
+        netId.Spawn(null);
     }
 }
 

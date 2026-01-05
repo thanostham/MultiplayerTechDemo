@@ -166,6 +166,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a140fd8590e9741a76e018ff5c2e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletTrail
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
   speed: 40
 --- !u!114 &-2855844280321123467
 MonoBehaviour:
