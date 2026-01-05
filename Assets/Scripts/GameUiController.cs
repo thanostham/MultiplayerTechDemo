@@ -5,16 +5,17 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; set; }
-    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject canvas;
 
     private void Awake()
     {
         Instance = this;
-        ToggleMainMenu(true);
+        DontDestroyOnLoad(this);
+        ToggleCanvas(true);
     }
 
-    public void ToggleMainMenu(bool statues)
+    public void ToggleCanvas(bool statues)
     {
-        mainMenu.SetActive(statues);
+        canvas.SetActive(statues);
     }
 }
