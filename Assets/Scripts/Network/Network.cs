@@ -21,7 +21,7 @@ public class Network : MonoBehaviour
 
     private NetworkManager networkManager;
     private FoodManager foodManager;
-    private NetworkIdentity localPlayerIdentity;
+    public  NetworkIdentity localPlayerIdentity;
 
     private PurrTransport _Ptransport;
 
@@ -63,8 +63,11 @@ public class Network : MonoBehaviour
     {
         yield return null;
 
-        networkManager = Object.FindAnyObjectByType<NetworkManager>();
-        foodManager = Object.FindAnyObjectByType<FoodManager>();
+        if (networkManager == null)
+        {
+            networkManager = NetInstance.GetComponent<NetworkManager>();
+            foodManager = FoodManager.Instance;
+        }
 
         if (networkManager == null)
         {
@@ -75,7 +78,7 @@ public class Network : MonoBehaviour
         if (localPlayerIdentity != null)
             yield break;
 
-        StartCoroutine(SpawnPlayerWithOwnership());
+        yield return SpawnPlayerWithOwnership();
 
         if (networkManager.isHost && foodManager != null)
         {
@@ -130,14 +133,8 @@ public class Network : MonoBehaviour
         );
 
         GameObject playerObj = Instantiate(playerPrefab, randomPos, Quaternion.identity);
-        networkManager.Spawn(playerObj);
 
-        yield return null;
-
-        localPlayerIdentity = playerObj.GetComponent<MovementLogic>();
-
-        if (localPlayerIdentity != null)
-            localPlayerIdentity.GiveOwnership(networkManager.localPlayer);
+        yield break;
     }
 
     private bool CheckRoomName()

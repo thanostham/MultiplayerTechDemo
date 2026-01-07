@@ -3,11 +3,11 @@ using PurrNet;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CameraController : NetworkBehaviour
+public class CameraLogic : NetworkBehaviour
 {
     [Header("Target")]
     [SerializeField] private Transform target;
-    public NetworkIdentity netID;
+    //public NetworkIdentity netID;
     
     [Header("Camera Settings")]
     [SerializeField] private float followSmoothSpeed = 10f;

@@ -1,5 +1,7 @@
 //Contribution - Both
 //Stratos Salpas
+
+using System;
 using UnityEngine;
 using PurrNet;
 using PurrNet.Transports;
@@ -9,27 +11,19 @@ public class MovementLogic : NetworkBehaviour
     [SerializeField] private float movementSpeed = 5f;
     public Rigidbody2D rb;
     public Camera cam;
-    
+
     Vector2 mousePos;
-
-
+    
     protected override void OnSpawned()
     {
-        base.OnSpawned();
-
-        if (isOwner)
-        {
-            cam.enabled = true;
-        }
-        else
-        {
-            cam.enabled = false;
-        }
-
+        UpdateCamera(isController);
     }
 
-
-
+    public void UpdateCamera(bool status)
+    {
+        cam.enabled = status;
+    }
+    
     private void OnDisable()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -38,7 +32,7 @@ public class MovementLogic : NetworkBehaviour
 
     private void Update()
     {    
-        if (!isOwner) return;
+        if (!isController) return;
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         cam.transform.position = rb.transform.position.WithNewZ(-10);

@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 5968187143285696476}
   - component: {fileID: 3783502287431779634}
   - component: {fileID: 4946754746315531863}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player 1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589393784580724803}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!114 &7460799457402245692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,7 +449,6 @@ MonoBehaviour:
   _networkRules: {fileID: 0}
   _visitiblityRules: {fileID: 0}
   target: {fileID: 8658362506302968268}
-  netID: {fileID: 0}
   followSmoothSpeed: 10
   zPosition: -10
   cam: {fileID: 6658074967494815369}

@@ -18,12 +18,12 @@ public class ShootingLogic : NetworkBehaviour
     {
         base.OnSpawned();
 
-        enabled = isOwner;
+        enabled = isController;
     }
 
     private void Update()
     {
-        if (!isOwner)
+        if (!isController)
             return;
 
 

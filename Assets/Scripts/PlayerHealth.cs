@@ -13,10 +13,10 @@ public class PlayerHealth : NetworkBehaviour
     {
         base.OnSpawned();   
 
-        var actualLayer = isOwner ? selfLayer : otherLayer;
+        var actualLayer = isController ? selfLayer : otherLayer;
         SetLayerRecursive(gameObject, actualLayer);
 
-        if (isOwner)
+        if (isController)
             health.onChanged += OnHealthChanged;
     }
 
