@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using PurrNet;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class FoodManager : MonoBehaviour
@@ -32,8 +33,12 @@ public class FoodManager : MonoBehaviour
 
     public void StartFood()
     {
-        CreatePool();
-        SpawnAllFood();
+        if (Network.NetInstance)
+        {
+            CreatePool();
+            SpawnAllFood();
+        }
+        
     }
     
 
