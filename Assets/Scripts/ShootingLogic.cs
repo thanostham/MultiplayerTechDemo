@@ -12,6 +12,8 @@ public class ShootingLogic : NetworkBehaviour
     [SerializeField] private float weaponRange = 10f;
     [SerializeField] private LayerMask hitLayer;
     [SerializeField] private int damage = 20;
+    [SerializeField] private AudioPlayer soundPlayerPrefab;
+    [SerializeField] private AudioClip fireSound;
 
 
     protected override void OnSpawned()
@@ -39,6 +41,8 @@ public class ShootingLogic : NetworkBehaviour
         var hit = Physics2D.Raycast(firePoint.position, transform.up, weaponRange, hitLayer);
         var trail = Instantiate(bulletTrail, firePoint.position, transform.rotation);
         var trailScript = trail.GetComponent<BulletTrail>();
+
+        Instantiate(soundPlayerPrefab, firePoint.position, Quaternion.identity).PlaySound(fireSound);
 
         if (hit.collider != null)
         {
