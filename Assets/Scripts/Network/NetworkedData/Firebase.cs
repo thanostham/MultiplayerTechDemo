@@ -19,7 +19,8 @@ public class FirebaseManager : MonoBehaviour
     
     [SerializeField] TMP_InputField Username;
     [SerializeField] TMP_InputField Password;
-
+    
+    [SerializeField] private TMP_Text ErrorText;
     [SerializeField] private TMP_Text NameToGet;
     [SerializeField] private TMP_Text PasswordToGet;
 
@@ -204,9 +205,14 @@ public class FirebaseManager : MonoBehaviour
     public void ContinueToScene(bool isUser = false)
     {
         if (userID != null) isUser = true;
-        //DELETE THIS LINE 
-        Debug.Log($"{NameToGet}, {PasswordToGet}");
-        if(isUser && Username == NameToGet && Password == PasswordToGet) SwitchToPanel();
+        if (isUser && Username.text == NameToGet.text && Password.text == PasswordToGet.text)
+        {
+            SwitchToPanel();
+        }
+        else
+        {
+            ErrorText.text = "User not found";
+        }
         
     }
 
@@ -234,7 +240,7 @@ public struct User
     }
 }
 
-//SQLite User [ not a struct, to compare it to null types ]
+//SQLite User 
 [System.Serializable]
 public class UsersDT
 {

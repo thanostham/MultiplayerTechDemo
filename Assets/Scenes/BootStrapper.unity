@@ -402,6 +402,7 @@ MonoBehaviour:
   mainMenuSceneId: 0
   gameSceneId: 1
   roomIField: {fileID: 918854852}
+  localPlayerIdentity: {fileID: 0}
 --- !u!114 &514139158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,6 +715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FirebaseManager
   Username: {fileID: 1976172252}
   Password: {fileID: 543568027}
+  ErrorText: {fileID: 667603866}
   NameToGet: {fileID: 2102017702}
   PasswordToGet: {fileID: 656272883}
   Warnings: {fileID: 667603866}
