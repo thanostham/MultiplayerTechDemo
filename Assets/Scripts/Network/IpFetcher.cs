@@ -7,6 +7,7 @@ public class IpFetcher : MonoBehaviour
 {
     public static IpFetcher Instance {get; private set;}
     public string CurrentIp;
+    //Site to take IP
     private string Ipify = "https://api.ipify.org?format=json";
 
     private void Awake()
