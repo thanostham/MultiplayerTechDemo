@@ -4,7 +4,8 @@ public class AudioPlayer : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
 
-    public void PlaySound(AudioClip clip, float volume = 1f)
+    [SerializeField] private float volume = 0.8f;
+    public void PlaySound(AudioClip clip)
     {
         audioSource.clip = clip;
         audioSource.volume = volume;

@@ -69,6 +69,16 @@ public class Network : MonoBehaviour
             foodManager = FoodManager.Instance;
         }
 
+        if (foodManager == null)
+        {
+            foodManager = FoodManager.Instance;
+
+            if (foodManager == null)
+            {
+                foodManager = FindAnyObjectByType<FoodManager>();
+            }
+        }
+
         if (networkManager == null)
         {
             Debug.LogError("NetworkManager not found in game scene");
@@ -83,6 +93,10 @@ public class Network : MonoBehaviour
         if (networkManager.isHost && foodManager != null)
         {
             foodManager.StartFood();
+        }
+        else if (networkManager.isHost && foodManager == null)
+        {
+            Debug.LogError("FoodManager not found in game scene");
         }
     }
 
@@ -162,6 +176,11 @@ public class Network : MonoBehaviour
         {
             Destroy(localPlayerIdentity.gameObject);
             localPlayerIdentity = null;
+        }
+
+        if (networkManager.isHost && foodManager != null)
+        {
+            foodManager.DespawnAllFood();
         }
 
         networkManager.StopClient();
