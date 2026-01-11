@@ -41,12 +41,12 @@ public class ScoreBoardView : View
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             Debug.Log("dosent show up");
             gameViewManager.ShowView<ScoreBoardView>(false);
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Tab))
         {
             gameViewManager.HideView<ScoreBoardView>();
         }
