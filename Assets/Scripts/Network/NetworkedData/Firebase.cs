@@ -35,7 +35,14 @@ public class FirebaseManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+        
         
         //There was an error about development certificates, this fixes it smh ? 
         System.Net.ServicePointManager.ServerCertificateValidationCallback = 
@@ -204,7 +211,6 @@ public class FirebaseManager : MonoBehaviour
     public void ContinueToScene(bool isUser = false)
     {
         if (userID != null) isUser = true;
-        //DELETE THIS LINE 
         Debug.Log($"{NameToGet}, {PasswordToGet}");
         if(isUser && Username == NameToGet && Password == PasswordToGet) SwitchToPanel();
         

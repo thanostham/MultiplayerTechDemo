@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using PurrNet;
@@ -6,6 +7,8 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using PurrNet.Modules;
 using System.Threading.Tasks;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public class Network : MonoBehaviour
 {
@@ -15,7 +18,7 @@ public class Network : MonoBehaviour
     [SerializeField] private float spawnRangeX = 30f;
     [SerializeField] private float spawnRangeY = 30f;
 
-    [SerializeField] private int mainMenuSceneId = 0;
+    [SerializeField] private int mainMenuSceneId = 2;
     [SerializeField] private int gameSceneId = 1;
     [SerializeField] private TMP_InputField roomIField;
 

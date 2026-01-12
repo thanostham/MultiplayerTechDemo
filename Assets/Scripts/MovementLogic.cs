@@ -6,6 +6,7 @@ using UnityEngine;
 using PurrNet;
 using PurrNet.Transports;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class MovementLogic : NetworkBehaviour
 {
@@ -19,7 +20,9 @@ public class MovementLogic : NetworkBehaviour
 
     [SerializeField] private float boostSpeed = 10f;
     [SerializeField] private float boostDuration = 2f;
-    [SerializeField] private float boostCooldown = 5f;
+    public static int requiredAmount= 50;
+    public static int foodCounter = 0;
+    [SerializeField] private bool boostCondition = false;
 
     private bool boostOn;
     private bool canBoost = true;
@@ -46,8 +49,6 @@ public class MovementLogic : NetworkBehaviour
     {    
         if (!isController) return;
 
-        //if (boostOn) return;
-
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         cam.transform.position = rb.transform.position.WithNewZ(-10);
 
@@ -61,7 +62,7 @@ public class MovementLogic : NetworkBehaviour
         MainGameView mainView = InstanceHandler.GetInstance<MainGameView>();
         if (mainView != null)
         {
-            mainView.UpdateBoostStatus(canBoost);
+            mainView.UpdateBoostStatus();
         }
     }
 
@@ -79,15 +80,24 @@ public class MovementLogic : NetworkBehaviour
 
     private IEnumerator SpeedBoost()
     {
-        Debug.Log("BoostOn");
-        canBoost = false;
-        boostOn = true;
-        movementSpeed = boostSpeed;
-        yield return new WaitForSeconds(boostDuration);
-        boostOn = false;
-        movementSpeed = baseSpeed;
-        Debug.Log("BoostOff");
-        yield return new WaitForSeconds(boostCooldown);
-        canBoost = true;
+        if (foodCounter >= requiredAmount)
+        {
+            Debug.Log("BoostOn");
+            foodCounter -= requiredAmount;
+            canBoost = false;
+            boostOn = true;
+            movementSpeed = boostSpeed;
+            yield return new WaitForSeconds(boostDuration);
+            boostOn = false;
+            movementSpeed = baseSpeed;
+            Debug.Log("BoostOff");
+            yield return new WaitForSeconds(1);
+            canBoost = true;  
+        }
+        else
+        {
+            Debug.Log("Not enough food to speed boost");
+        }
+        
     }
 }

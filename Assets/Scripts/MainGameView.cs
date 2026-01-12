@@ -34,16 +34,16 @@ public class MainGameView : View
         healthText.text = $"Health: " + health.ToString() + " / 100";
     }
 
-    public void UpdateBoostStatus(bool canBoost)
+    public void UpdateBoostStatus()
     {
-        if (canBoost)
+        if (MovementLogic.foodCounter >= MovementLogic.requiredAmount)
         {
-            boostText.text = " AVAILABLE";
+            boostText.text = ($"Ready: {MovementLogic.foodCounter}");
             boostText.color = Color.green;
         }
         else
         {
-            boostText.text = " UNAVAILABLE";
+            boostText.text = ($"Req 50: {MovementLogic.foodCounter}");
             boostText.color = Color.red;
         }
     }

@@ -8,7 +8,7 @@ public class ScoreBoardView : View
 {
     [SerializeField] private Transform scoreboardEntriesParent;
     [SerializeField] private ScoreBoardEntry scoreBoardEntryPrefab;
-
+    
     private GameViewManager gameViewManager;
 
     private void Awake()

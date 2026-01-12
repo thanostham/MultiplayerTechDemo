@@ -67,8 +67,8 @@ public class Food : NetworkBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player Collided with Food");
             FoodManager.Instance.DespawnFood(gameObject);
+            MovementLogic.foodCounter++;
         }
     }
 }
