@@ -2,8 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using PurrNet;
-using UnityEditor;
-using UnityEngine.SceneManagement;
+using Lean.Pool;
 using Random = UnityEngine.Random;
 
 public class FoodManager : MonoBehaviour
@@ -20,7 +19,6 @@ public class FoodManager : MonoBehaviour
         }
 
         Instance = this;
-        
         DontDestroyOnLoad(gameObject);
     }
     
@@ -28,51 +26,83 @@ public class FoodManager : MonoBehaviour
     public int poolSize = 500;
     public Vector2 mapSize = new Vector2(100, 100);
 
-    private List<GameObject> foodPool = new List<GameObject>();
-    
+    private List<GameObject> activeFoodList = new List<GameObject>();
 
     public void StartFood()
     {
         if (Network.NetInstance)
         {
-            CreatePool();
+            PreloadPool();
             SpawnAllFood();
         }
-        
     }
     
-
-    private void CreatePool()
+    private void PreloadPool()
     {
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject food = Instantiate(foodPrefab);
-            food.SetActive(false);
-            foodPool.Add(food);
+            GameObject food = LeanPool.Spawn(foodPrefab);
+            LeanPool.Despawn(food);
         }
     }
 
     private void SpawnAllFood()
     {
-        foreach (GameObject food in foodPool)
+        for (int i = 0; i < poolSize; i++)
         {
-            RespawnFood(food);
+            SpawnFood();
         }
     }
-
-    public void RespawnFood(GameObject food)
+    
+    public GameObject SpawnFood()
     {
-        Vector3 pos = new Vector3(Random.Range(-mapSize.x / 2, mapSize.x / 2), Random.Range(-mapSize.y / 2, mapSize.y / 2), 1f);
+        Vector3 pos = new Vector3(
+            Random.Range(-mapSize.x / 2, mapSize.x / 2), 
+            Random.Range(-mapSize.y / 2, mapSize.y / 2), 
+            1f
+        );
 
-        food.transform.position = pos;
+        //Spawn from pool
+        GameObject food = LeanPool.Spawn(foodPrefab, pos, Quaternion.identity);
 
+        //Randomize size
         float size = Random.Range(0.3f, 1.2f);
         food.transform.localScale = Vector3.one * size;
 
+        //Randomize color
         Color randomColor = Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f);
         food.GetComponent<SpriteRenderer>().color = randomColor;
 
-        food.SetActive(true);
+        activeFoodList.Add(food);
+        return food;
+    }
+    
+    public void DespawnFood(GameObject food)
+    {
+        if (activeFoodList.Contains(food))
+        {
+            activeFoodList.Remove(food);
+        }
+        
+        //Return to pool
+        LeanPool.Despawn(food);
+        
+        //Maintain pool size
+        SpawnFood();
     }
 
+    //Clean up all food
+    public void DespawnAllFood()
+    {
+        foreach (GameObject food in activeFoodList.ToArray())
+        {
+            LeanPool.Despawn(food);
+        }
+        activeFoodList.Clear();
+    }
+
+    private void OnDestroy()
+    {
+        DespawnAllFood();
+    }
 }

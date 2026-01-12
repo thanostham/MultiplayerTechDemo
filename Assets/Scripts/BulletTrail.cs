@@ -23,7 +23,5 @@ public class BulletTrail : NetworkBehaviour
     public void SetTrargetPosition(Vector3 targetPosition)
     {
         targerPos = targetPosition.WithAxis(Axis.Z, -1);
-
-
     }
 }

@@ -6,6 +6,10 @@ public class PlayerHealth : NetworkBehaviour
 {
     [SerializeField] private SyncVar<int> health = new(100);
     [SerializeField] private int selfLayer, otherLayer;
+    [SerializeField] private AudioPlayer soundPlayerPrefab;
+    [SerializeField] private AudioClip deathSound;
+
+    public Action<PlayerHealth> OnDeath_Server;
 
     public int Health => health;
 
@@ -43,13 +47,30 @@ public class PlayerHealth : NetworkBehaviour
     }
 
     [ServerRpc(requireOwnership:false)]
-    public void ChangeHealth(int amount)
+    public void ChangeHealth(int amount, RPCInfo info = default)
     {
         health.value += amount;
 
         if (health.value <= 0)
         {
+            if (InstanceHandler.TryGetInstance(out ScoreManager scoreManager))
+            {
+                scoreManager.AddKill(info.sender);
+
+                if (owner.HasValue)
+                    scoreManager.AddDeath(owner.Value);
+            }
+
+            PlayDeathEffects();
+            OnDeath_Server?.Invoke(this); 
             Destroy(gameObject);
         }
+    }
+
+    [ObserversRpc(runLocally:true)]
+    private void PlayDeathEffects()
+    {
+        var soundPlayer = Instantiate(soundPlayerPrefab, transform.position, Quaternion.identity);
+        soundPlayer.PlaySound(deathSound);
     }
 }

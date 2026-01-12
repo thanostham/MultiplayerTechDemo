@@ -260,6 +260,8 @@ MonoBehaviour:
     _sendIntervalInSeconds: 0
   selfLayer: 9
   otherLayer: 10
+  soundPlayerPrefab: {fileID: 927590164711708581, guid: 92215408ac18e9941ba9b8175caee292, type: 3}
+  deathSound: {fileID: 8300000, guid: 8524588a69a4f3e40bb597b6221138f1, type: 3}
 --- !u!114 &5968187143285696476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,8 +284,12 @@ MonoBehaviour:
   _networkRules: {fileID: 0}
   _visitiblityRules: {fileID: 0}
   movementSpeed: 5
+  baseSpeed: 5
   rb: {fileID: 4897377749788570162}
   cam: {fileID: 6658074967494815369}
+  boostSpeed: 10
+  boostDuration: 2
+  boostCondition: 0
 --- !u!114 &3783502287431779634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +318,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 7168
   damage: 20
+  soundPlayerPrefab: {fileID: 927590164711708581, guid: 92215408ac18e9941ba9b8175caee292, type: 3}
+  fireSound: {fileID: 8300000, guid: 27c10a87efb3c6144bdc83e8c360bbf5, type: 3}
 --- !u!114 &4946754746315531863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +394,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.1764706, g: 0.19215687, b: 0.21960784, a: 0.9647059}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

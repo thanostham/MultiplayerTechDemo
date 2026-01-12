@@ -6,7 +6,8 @@ using static GameViewManager;
 public class MainGameView : View
 {
     [SerializeField] private TMP_Text healthText;
-   
+    [SerializeField] private TMP_Text boostText;
+
 
     private void Awake()
     {
@@ -31,5 +32,19 @@ public class MainGameView : View
     public void UpdateHealth(int health)
     {
         healthText.text = $"Health: " + health.ToString() + " / 100";
+    }
+
+    public void UpdateBoostStatus()
+    {
+        if (MovementLogic.foodCounter >= MovementLogic.requiredAmount)
+        {
+            boostText.text = ($"Ready: {MovementLogic.foodCounter}");
+            boostText.color = Color.green;
+        }
+        else
+        {
+            boostText.text = ($"Req 50: {MovementLogic.foodCounter}");
+            boostText.color = Color.red;
+        }
     }
 }

@@ -2,15 +2,30 @@
 
 using PurrNet;
 using UnityEngine;
+using Lean.Pool;
 
 public class Food : NetworkBehaviour
 {
-    [SerializeField] GameObject food;
     [SerializeField] float lerpSpeed = 5f;
     [SerializeField] float attractionDistance = 1f;
     
     private Transform playerTransform;
     private bool isLerping = false;
+
+    //Called when spawned from pool
+    private void OnEnable()
+    {
+        // Reset state when food is spawned
+        isLerping = false;
+        playerTransform = null;
+    }
+
+    //Called when returned to pool
+    private void OnDisable()
+    {
+        playerTransform = null;
+        isLerping = false;
+    }
 
     private void Update()
     {
@@ -52,9 +67,8 @@ public class Food : NetworkBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //Debug.Log("Player Collided with Food");
-            Destroy(gameObject);
-            FoodManager.Instance.RespawnFood(food);
+            FoodManager.Instance.DespawnFood(gameObject);
+            MovementLogic.foodCounter++;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using PurrNet;
@@ -6,6 +7,8 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using PurrNet.Modules;
 using System.Threading.Tasks;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public class Network : MonoBehaviour
 {
@@ -15,7 +18,7 @@ public class Network : MonoBehaviour
     [SerializeField] private float spawnRangeX = 30f;
     [SerializeField] private float spawnRangeY = 30f;
 
-    [SerializeField] private int mainMenuSceneId = 0;
+    [SerializeField] private int mainMenuSceneId = 2;
     [SerializeField] private int gameSceneId = 1;
     [SerializeField] private TMP_InputField roomIField;
 
@@ -69,6 +72,16 @@ public class Network : MonoBehaviour
             foodManager = FoodManager.Instance;
         }
 
+        if (foodManager == null)
+        {
+            foodManager = FoodManager.Instance;
+
+            if (foodManager == null)
+            {
+                foodManager = FindAnyObjectByType<FoodManager>();
+            }
+        }
+
         if (networkManager == null)
         {
             Debug.LogError("NetworkManager not found in game scene");
@@ -83,6 +96,10 @@ public class Network : MonoBehaviour
         if (networkManager.isHost && foodManager != null)
         {
             foodManager.StartFood();
+        }
+        else if (networkManager.isHost && foodManager == null)
+        {
+            Debug.LogError("FoodManager not found in game scene");
         }
     }
 
@@ -162,6 +179,11 @@ public class Network : MonoBehaviour
         {
             Destroy(localPlayerIdentity.gameObject);
             localPlayerIdentity = null;
+        }
+
+        if (networkManager.isHost && foodManager != null)
+        {
+            foodManager.DespawnAllFood();
         }
 
         networkManager.StopClient();
