@@ -66,16 +66,25 @@ public class MovementLogic : NetworkBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        rb.position += dir * movementSpeed * Time.deltaTime;
+        rb.rotation = angle;
+    }
+
+    Vector2 dir;
+    float angle;
+
     private void SendMovementToServer(Vector2 targetMousePos)
     {
         Vector2 target = Vector2.Lerp(rb.position, targetMousePos, 0.1f);
-        Vector2 dir = (target - rb.position).normalized;
+        dir = (target - rb.position).normalized;
 
-        rb.position += dir * movementSpeed * Time.deltaTime;
+        //rb.position += dir * movementSpeed * Time.deltaTime;
 
         Vector2 lookDir = targetMousePos - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = angle;
+        angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        //rb.rotation = angle;
     }
 
     private IEnumerator SpeedBoost()
