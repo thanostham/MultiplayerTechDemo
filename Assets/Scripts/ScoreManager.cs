@@ -3,13 +3,14 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+
 
 public class ScoreManager : NetworkBehaviour
 {
     [SerializeField] private SyncDictionary<PlayerID, ScoreData> score = new();
 
-    private int killsToWin = 3;
+    private int killsToWin = 10;
 
     private bool gameEnded = false;
 
@@ -42,6 +43,9 @@ public class ScoreManager : NetworkBehaviour
 
     public void AddKill(PlayerID playerID)
     {
+        if (gameEnded)
+            return;
+
         CheckForDictionaryEntry(playerID);
 
         var scoreData = score[playerID];
@@ -50,6 +54,7 @@ public class ScoreManager : NetworkBehaviour
 
         if (scoreData.kills >= killsToWin)
         {
+            gameEnded = true;
             RpcAnnounceWinner(playerID);
         }
     }
@@ -90,10 +95,33 @@ public class ScoreManager : NetworkBehaviour
 
     private IEnumerator EndGameRoutine()
     {
-        
         yield return new WaitForSeconds(3f);
 
-       
-        SceneManager.LoadScene("MainMenu");
+        if (isServer)
+        {
+            networkManager.StopServer();
+        }
+        networkManager.StopClient();
+
+        SceneManager.LoadScene("Menu");
+
+        if (InstanceHandler.TryGetInstance(out MainGameView view))
+        {
+            view.gameObject.SetActive(false);
+        }
+
+        if (InstanceHandler.TryGetInstance(out ScoreBoardView boardview))
+        {
+            boardview.gameObject.SetActive(false);
+        }
+
+        if (FirebaseManager.Instance != null)
+        {
+            FirebaseManager.Instance.SwitchToPanel();
+        }
+
+        
+        //enable roompanel
+        //disable main view 
     }
 }

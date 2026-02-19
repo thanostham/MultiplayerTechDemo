@@ -52,6 +52,23 @@ public class Network : MonoBehaviour
     private void Start()
     {
         networkManager = Object.FindAnyObjectByType<NetworkManager>();
+        networkManager.onClientConnectionState += NetworkManager_onClientConnectionState;
+    }
+
+    private void NetworkManager_onClientConnectionState(ConnectionState obj)
+    {
+        switch (obj)
+        {
+            case ConnectionState.Connecting:
+                break;
+            case ConnectionState.Connected:
+                break;
+            case ConnectionState.Disconnected:
+                SceneManager.LoadScene(2);
+                break;
+            case ConnectionState.Disconnecting:
+                break;
+        }
     }
 
     private void SceneManagerOnActiveSceneChanged(Scene oldScene, Scene newScene)

@@ -18,6 +18,7 @@ MonoBehaviour:
     defaultOwner: 1
     propagateOwnershipByDefault: 1
     despawnIfOwnerDisconnects: 1
+    cleanupSpawnedObjects: 1
   _defaultRpcRules:
     ignoreRequireServerAttribute: 1
     ignoreRequireOwnerAttribute: 1
@@ -29,7 +30,10 @@ MonoBehaviour:
     removeAuth: -1
     overrideWhenPropagating: 1
   _defaultSceneRules:
-    removePlayerFromSceneOnDisconnect: 0
+    _cleanupScenesOnDisconnect: 0
+    removePlayerFromSceneOnDisconnect: 1
+    sceneCleanupModeOnDisconnect: 0
+    alwaysIncludeDontDestroyOnLoadScene: 0
   _defaultIdentityRules:
     receiveRpcsWhenDisabled: 1
   _defaultTransformRules:
