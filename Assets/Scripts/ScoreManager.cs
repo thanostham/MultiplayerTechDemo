@@ -1,10 +1,17 @@
 using PurrNet;
-using UnityEngine;
 using System;
+using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 public class ScoreManager : NetworkBehaviour
 {
     [SerializeField] private SyncDictionary<PlayerID, ScoreData> score = new();
+
+    private int killsToWin = 3;
+
+    private bool gameEnded = false;
 
     private void Awake()
     {
@@ -40,6 +47,11 @@ public class ScoreManager : NetworkBehaviour
         var scoreData = score[playerID];
         scoreData.kills++;
         score[playerID] = scoreData;
+
+        if (scoreData.kills >= killsToWin)
+        {
+            RpcAnnounceWinner(playerID);
+        }
     }
 
     public void AddDeath(PlayerID playerID)
@@ -56,12 +68,32 @@ public class ScoreManager : NetworkBehaviour
     {
         public int kills;
         public int deaths;
-        //public int killRatio;
 
         public override string ToString()
         {
             return $"{kills}/{deaths}";
            
         }
+    }
+
+    [ObserversRpc]
+    private void RpcAnnounceWinner(PlayerID winnerID)
+    {
+        if (InstanceHandler.TryGetInstance(out MainGameView view))
+        {
+            view.ShowWinner(winnerID.ToString());
+        }
+
+        StartCoroutine(EndGameRoutine());
+        //Debug.Log($"GAME OVER! Player {winnerID} Wins!");
+    }
+
+    private IEnumerator EndGameRoutine()
+    {
+        
+        yield return new WaitForSeconds(3f);
+
+       
+        SceneManager.LoadScene("MainMenu");
     }
 }

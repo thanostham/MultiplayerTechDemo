@@ -58,12 +58,41 @@ public class PlayerHealth : NetworkBehaviour
                 scoreManager.AddKill(info.sender);
 
                 if (owner.HasValue)
-                    scoreManager.AddDeath(owner.Value);
+                    scoreManager.AddDeath(owner.Value);    
             }
 
             PlayDeathEffects();
-            OnDeath_Server?.Invoke(this); 
-            Destroy(gameObject);
+            OnDeath_Server?.Invoke(this);
+            //Destroy(gameObject);
+
+            Respawn();
+        }
+    }
+
+    //Try respawn when pl dies instead of destroy 
+    private void Respawn()
+    {
+        health.value = 100;
+
+        float spawnRange = 30f;
+        Vector3 newPos = new Vector3(
+            UnityEngine.Random.Range(-spawnRange / 2f, spawnRange / 2f),
+            UnityEngine.Random.Range(-spawnRange / 2f, spawnRange / 2f),
+            0f
+        );
+
+        RpcTeleport(newPos);
+        //transform.position = newPos;
+    }
+
+    [ObserversRpc(runLocally: true)]
+    private void RpcTeleport(Vector3 position)
+    {
+        transform.position = position;
+
+        if (TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+        {
+            rb.linearVelocity = Vector2.zero;
         }
     }
 
