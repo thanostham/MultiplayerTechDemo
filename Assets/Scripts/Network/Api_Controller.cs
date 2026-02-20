@@ -17,6 +17,7 @@ public class Api_Controller : MonoBehaviour
 
     [Header("API Settings")]
     public string baseUrl = "https://rest-db-production.up.railway.app/api/Api";
+    public static string LoggedInUsername = "Unknown Player";
     
     //Buttons
     public void OnRegisterPressed()
@@ -66,6 +67,7 @@ public class Api_Controller : MonoBehaviour
             {
                 Debug.Log("User created successfully!");
                 ErrorText.text = "User created successfully!";
+                LoggedInUsername = username;
                 LoginPanel.SetActive(false);
                 RoomPanel.SetActive(true);
                 ErrorText.gameObject.SetActive(false);
@@ -102,6 +104,7 @@ public class Api_Controller : MonoBehaviour
                 LoginPanel.SetActive(false);
                 RoomPanel.SetActive(true);
                 ErrorText.gameObject.SetActive(false);
+                LoggedInUsername = username;
             }
             else if (request.responseCode == 404 || request.responseCode == 401)
             {

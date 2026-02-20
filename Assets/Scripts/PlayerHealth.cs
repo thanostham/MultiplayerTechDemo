@@ -6,8 +6,8 @@ public class PlayerHealth : NetworkBehaviour
 {
     [SerializeField] private SyncVar<int> health = new(100);
     [SerializeField] private int selfLayer, otherLayer;
-    [SerializeField] private AudioPlayer soundPlayerPrefab;
     [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioSource audioSource;
 
     public Action<PlayerHealth> OnDeath_Server;
 
@@ -99,7 +99,6 @@ public class PlayerHealth : NetworkBehaviour
     [ObserversRpc(runLocally:true)]
     private void PlayDeathEffects()
     {
-        var soundPlayer = Instantiate(soundPlayerPrefab, transform.position, Quaternion.identity);
-        soundPlayer.PlaySound(deathSound);
+        audioSource.PlayOneShot(deathSound);
     }
 }
