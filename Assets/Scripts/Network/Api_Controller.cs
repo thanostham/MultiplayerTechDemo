@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,10 +12,13 @@ public class Api_Controller : MonoBehaviour
     
     public GameObject LoginPanel;
     public GameObject RoomPanel;
+    
+    public TextMeshProUGUI ErrorText;
 
     [Header("API Settings")]
     public string baseUrl = "https://rest-db-production.up.railway.app/api/Api";
     
+    //Buttons
     public void OnRegisterPressed()
     {
         string user = usernameInput.text;
@@ -37,12 +41,14 @@ public class Api_Controller : MonoBehaviour
         if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(pass))
         {
             Debug.LogWarning("Username or Password cannot be empty!");
+            ErrorText.text = "Username or Password cannot be empty!";
             return;
         }
         
         StartCoroutine(LoginUser(user, pass));
     }
     
+    //Post
     private IEnumerator RegisterUser(string username, string password)
     {
         string jsonData = $"{{\"Name\":\"{username}\", \"Pass\":\"{password}\"}}";
@@ -59,12 +65,15 @@ public class Api_Controller : MonoBehaviour
             if (request.responseCode == 200)
             {
                 Debug.Log("User created successfully!");
+                ErrorText.text = "User created successfully!";
                 LoginPanel.SetActive(false);
                 RoomPanel.SetActive(true);
+                ErrorText.gameObject.SetActive(false);
             }
             else if (request.responseCode == 409)
             {
                 Debug.LogWarning("User already exists. Try a different name.");
+                ErrorText.text = "User already exists!";
             }
             else
             {
@@ -73,6 +82,7 @@ public class Api_Controller : MonoBehaviour
         }
     }
 
+    //Login
     private IEnumerator LoginUser(string username, string password)
     {
         string jsonData = $"{{\"Name\":\"{username}\", \"Pass\":\"{password}\"}}";
@@ -91,14 +101,17 @@ public class Api_Controller : MonoBehaviour
                 Debug.Log("Login Successful!");
                 LoginPanel.SetActive(false);
                 RoomPanel.SetActive(true);
+                ErrorText.gameObject.SetActive(false);
             }
             else if (request.responseCode == 404 || request.responseCode == 401)
             {
-                Debug.LogWarning("Login failed: Incorrect username or password.");
+                Debug.LogWarning("Login failed: Incorrect username or password. Or maybe a slight gaslighting, you will never know...NEVER. (unless you are an admin on Mongo.... or you have the Rest... you have Both idk)");
+                ErrorText.text =  "Login Failed!";
             }
             else
             {
                 Debug.LogError($"Error: {request.responseCode} - {request.error}");
+                ErrorText.text =  ($"Login Failed! StatusCode: {request.responseCode} - {request.error}");
             }
         }
     }
