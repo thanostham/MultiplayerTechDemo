@@ -115,11 +115,6 @@ public class ScoreManager : NetworkBehaviour
             boardview.gameObject.SetActive(false);
         }
 
-        if (FirebaseManager.Instance != null)
-        {
-            FirebaseManager.Instance.SwitchToPanel();
-        }
-
         
         //enable roompanel
         //disable main view 
